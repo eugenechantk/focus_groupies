@@ -1,0 +1,31 @@
+# .gitignore for a Chrome extension repo
+
+# Ignore node modules
+/node_modules/
+
+# Ignore logs
+*.log
+
+# Ignore package-lock.json and yarn.lock
+package-lock.json
+yarn.lock
+
+# Ignore build files and directories
+/build/
+/dist/
+/out/
+
+# Ignore all .zip files
+*.zip
+
+# Ignore all .pem files
+*.pem
+
+# Ignore macOS finder files
+.DS_Store
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore npm debug files
+npm-debug.log*
