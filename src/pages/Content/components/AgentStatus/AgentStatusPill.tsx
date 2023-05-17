@@ -62,10 +62,10 @@ export default function AgentStatusPill({
       />
       <h3
         style={{
-          fontFamily: "Poppins",
+          fontFamily: "Poppins !important",
           color: "black",
-          fontWeight: "500",
-          fontSize: "20px",
+          fontWeight: "500 !important",
+          fontSize: "20px !important",
           letterSpacing: "tight",
           lineHeight: "1",
           marginTop: "0px",
