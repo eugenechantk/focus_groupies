@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:host {
-  all: initial !important;
-}
-
 @layer base {
   div > * {
     @apply p-0
