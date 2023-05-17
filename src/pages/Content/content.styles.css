@@ -11,6 +11,14 @@
     @apply bg-gradient-to-b from-theme-100 from-[40%] to-theme-90
   }
 
+  .background-white-hover {
+    @apply hover:bg-gradient-to-b hover:from-theme-95 hover:from-[40%] hover:to-theme-90
+  }
+
+  .background-white-active {
+    @apply active:bg-gradient-to-b active:from-theme-92 active:from-[40%] active:to-theme-85
+  }
+
   .border-white {
     @apply bg-gradient-to-b from-theme-100 from-[63%] to-theme-90 to-[76%]
   }

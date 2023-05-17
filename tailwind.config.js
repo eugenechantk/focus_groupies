@@ -15,7 +15,10 @@ module.exports = {
       colors: {
         'theme': {
           100: '#FFFFFF',
+          95: '#F2F2F2',
+          92: '#EBEBEB',
           90: '#E5E5E5',
+          85: '#D9D9D9',
           25: '#404040',
           12: '#1F1F1F',
           5: '#1D1D1D',
