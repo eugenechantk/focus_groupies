@@ -2,12 +2,13 @@
 
 import React from "react";
 import clsx from "clsx";
+import { AgentState } from "./AgentStatusContainer";
 
-export default function AgentStatusBar({ onClick }: { onClick?: () => void }) {
+export default function AgentStatusPill({ onClick, agentState }: { onClick?: () => void, agentState: AgentState}) {
   return (
     <div
       className={clsx(
-        "cursor-pointer",
+        agentState === AgentState.THOUGHTS_GENERATED && "cursor-pointer",
         "flex flex-row gap-2 px-3 py-2 background-white rounded-full border border-theme-90 w-fit drop-shadow-lg"
       )}
       onClick={onClick}
