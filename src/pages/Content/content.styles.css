@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .background-black {
+    @apply bg-gradient-to-b from-theme-25 to-theme-5 to-[68%]
+  }
+
+  .background-white {
+    @apply bg-gradient-to-b from-theme-100 from-[40%] to-theme-90
+  }
+
+  .border-white {
+    @apply bg-gradient-to-b from-theme-100 from-[63%] to-theme-90 to-[76%]
+  }
+
+  .border-black {
+    @apply bg-gradient-to-b from-theme-25 from-[63%] to-theme-12 to-[76%]
+  }
+}
