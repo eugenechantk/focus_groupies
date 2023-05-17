@@ -10,9 +10,20 @@ import React from "react";
 import AgentStatusContainer from "./components/AgentStatus/AgentStatusContainer";
 import { render } from "react-dom";
 import { StyleSheetManager } from "styled-components";
+import $ from "jquery";
+import { scrapeDOM } from "./modules/scraper";
 
 console.log("Content script works!");
 console.log("Must reload extension for modifications to take effect.");
+
+chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
+  console.log(response.farewell);
+});
+
+$(document).ready(() => {
+    scrapeDOM();
+});
+
 
 printLine("Using the 'printLine' function from the Print Module");
 
