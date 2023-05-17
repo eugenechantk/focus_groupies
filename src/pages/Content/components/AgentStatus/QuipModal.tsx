@@ -16,6 +16,7 @@ export default function QuipModal({
       {(quip && isQuipModalOpen) && (
         <div
           style={{
+            all: 'initial',
             paddingTop: "2rem",
             paddingRight: "1.25rem",
             paddingBottom: "1rem",
