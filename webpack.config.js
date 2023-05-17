@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 var webpack = require('webpack'),
   path = require('path'),
   fileSystem = require('fs-extra'),
@@ -148,6 +149,12 @@ var options = {
   plugins: [
     isDevelopment && new ReactRefreshWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: false }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(dotenv.parsed),
+      'process.env.gpt_api_key': JSON.stringify(
+        process.env.gpt_api_key
+      ),
+    }),
     new webpack.ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
     new webpack.EnvironmentPlugin(['NODE_ENV']),
