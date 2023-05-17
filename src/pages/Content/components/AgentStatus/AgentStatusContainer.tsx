@@ -41,7 +41,8 @@ const sampleQuip =
 const RootContainer = styled.div`
   margin-left: 48px;
   margin-right: 48px;
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
 `;
 
 const PillContainer = styled.div`
