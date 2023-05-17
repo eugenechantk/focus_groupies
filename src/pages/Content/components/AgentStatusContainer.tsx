@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import AgentStatusBar from "./AgentStatusBar";
+import QuipModal from "./QuipModal";
 
 export default function AgentStatusContainer() {
+  const [isQuipModalOpen, setIsQuipModalOpen] = useState(false);
   return (
-    <>
+    <div className="mx-6 max-w-[600px]">
       {/* Status */}
-      <div className="flex flex-row gap-2">
-        <AgentStatusBar />
+      <div className="flex flex-row gap-2 w-fit mx-auto relative z-20">
+        <AgentStatusBar onClick={() => setIsQuipModalOpen(!isQuipModalOpen)} />
         <button className="w-12 h-12 flex flex-row items-center justify-center rounded-full background-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +26,7 @@ export default function AgentStatusContainer() {
           </svg>
         </button>
       </div>
-      
-    </>
+      <QuipModal isQuipModalOpen={isQuipModalOpen} />
+    </div>
   );
 }
