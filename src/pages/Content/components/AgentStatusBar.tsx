@@ -8,7 +8,7 @@ export default function AgentStatusBar({ onClick }: { onClick?: () => void }) {
     <div
       className={clsx(
         "cursor-pointer",
-        "flex flex-row gap-2 px-3 py-2 background-white rounded-full border border-theme-90 w-fit"
+        "flex flex-row gap-2 px-3 py-2 background-white rounded-full border border-theme-90 w-fit drop-shadow-lg"
       )}
       onClick={onClick}
       style={{direction: "ltr"}}

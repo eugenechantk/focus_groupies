@@ -1,6 +1,9 @@
 import React from "react";
 import clsx from "clsx";
 
+// TODO: Mimic the raw quip text format and set as prop
+// TODO: add animation for expanding and collapsing
+// TODO: add animation for showing text word by word
 export default function QuipModal({
   isQuipModalOpen,
 }: {
