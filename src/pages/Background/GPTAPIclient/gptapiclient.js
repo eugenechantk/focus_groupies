@@ -26,6 +26,10 @@ export default class GPTAPIclient{
             }],
             'model': 'gpt-4'
         };
+        return this.request(data);
+    }
+
+    async request(data){
         try {
             // Make the POST request
             const response = await fetch(this.apiUrl, {
@@ -37,8 +41,6 @@ export default class GPTAPIclient{
             // Parse the response as JSON
             const responseData = await response.json();
             const generatedContent = responseData.choices[0].message.content;
-            // Log the response data
-            console.log(generatedContent);
             return generatedContent;
         } catch (error) {
             console.error('Error:', error);
