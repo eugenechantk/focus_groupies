@@ -2,28 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+.cursorNameTag {
+  @apply font-mono font-semibold text-[22px] text-['#F9FAFB'] uppercase;
+}
+
 @layer utilities {
   .background-black {
-    @apply bg-gradient-to-b from-theme-25 to-theme-5 to-[68%]
+    @apply bg-gradient-to-b from-theme-25 to-theme-5 to-[68%];
   }
 
   .background-white {
-    @apply bg-gradient-to-b from-theme-100 from-[40%] to-theme-90
+    @apply bg-gradient-to-b from-theme-100 from-[40%] to-theme-90;
   }
 
   .background-white-hover {
-    @apply hover:bg-gradient-to-b hover:from-theme-95 hover:from-[40%] hover:to-theme-90
+    @apply hover:bg-gradient-to-b hover:from-theme-95 hover:from-[40%] hover:to-theme-90;
   }
 
   .background-white-active {
-    @apply active:bg-gradient-to-b active:from-theme-92 active:from-[40%] active:to-theme-85
+    @apply active:bg-gradient-to-b active:from-theme-92 active:from-[40%] active:to-theme-85;
   }
 
   .border-white {
-    @apply bg-gradient-to-b from-theme-100 from-[63%] to-theme-90 to-[76%]
+    @apply bg-gradient-to-b from-theme-100 from-[63%] to-theme-90 to-[76%];
   }
 
   .border-black {
-    @apply bg-gradient-to-b from-theme-25 from-[63%] to-theme-12 to-[76%]
+    @apply bg-gradient-to-b from-theme-25 from-[63%] to-theme-12 to-[76%];
   }
 }

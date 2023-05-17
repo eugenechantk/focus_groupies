@@ -1,10 +1,11 @@
 import { printLine } from "./modules/print";
 import logo from "../../assets/img/logo.svg";
 import cursor from "../../assets/img/cursor.svg";
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import AgentStatusContainer from "./components/AgentStatus/AgentStatusContainer"
-import './content.styles.css'
+import React from "react";
+import { createRoot } from "react-dom/client";
+import AgentStatusContainer from "./components/AgentStatus/AgentStatusContainer";
+import "./content.styles.css";
+import { Cursor } from "./Cursor";
 
 console.log("Content script works!");
 console.log("Must reload extension for modifications to take effect.");
@@ -21,6 +22,9 @@ app.style.cssText = 'z-index:10000;position:fixed;bottom:16px;width:100%;display
 
 app.id = 'react-root'
 
+// Testing
+const navBar = document.getElementsByClassName("navbar-brand mr-1");
+
 if (body) {
   body.prepend(app)
 }
@@ -28,5 +32,8 @@ if (body) {
 const container = document.getElementById('react-root');
 const root = createRoot(container);
 root.render(
+  <>
     <AgentStatusContainer />
+    <Cursor name="John" targetRef={container} />
+  </>
 );

@@ -1,8 +1,16 @@
 import React from "react";
+import "./CursorIcon.css";
 
-export const CursorIcon = () => {
+export const CursorIcon = ({ clicked }) => {
   return (
-    <>
+    <span
+      style={{
+        margin: "0em 5em -1.5em 0px",
+        zIndex: 1001,
+        transition: "transform 0.3s",
+      }}
+      className={clicked ? "shrink" : ""}
+    >
       <svg
         width="72"
         height="72"
@@ -59,6 +67,6 @@ export const CursorIcon = () => {
           </filter>
         </defs>
       </svg>
-    </>
+    </span>
   );
 };
