@@ -55,6 +55,29 @@ const PillContainer = styled.div`
   direction: rtl;
 `;
 
+const PlayButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  gap: 16px;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(180deg, #ffffff 39.58%, #e6e6e6 100%);
+  border-radius: 1000px;
+  border: 1px solid #f2f2f2; /* You can replace this with your desired border color */
+  cursor: pointer;
+  &:hover {
+    background: linear-gradient(180deg, #f2f2f2 39.58%, #e6e6e6 100%);
+    border: 1px solid #f9fafb;
+  }
+  &:active {
+    background: linear-gradient(180deg, #ebebeb 39.58%, #d9d9d9 100%);
+    border: 1px solid #f3f4f6;
+  }
+`;
+
 export default function AgentStatusContainer({
   agent = sampleAgent,
   agentState = AgentState.THOUGHTS_GENERATED,
@@ -67,23 +90,7 @@ export default function AgentStatusContainer({
     <RootContainer>
       {/* Status */}
       <PillContainer>
-        <button
-          onClick={setIsAgentPaused}
-          style={{
-            border: "1px solid",
-            borderColor: "#F2F2F2",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "12px",
-            gap: "16px",
-            width: "48px",
-            height: "48px",
-            background: "linear-gradient(180deg, #FFFFFF 39.58%, #E6E6E6 100%)",
-            borderRadius: "1000px",
-          }}
-        >
+        <PlayButton onClick={setIsAgentPaused}>
           {isAgentPaused ? (
             // Play icon
             <svg
@@ -92,7 +99,7 @@ export default function AgentStatusContainer({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              style={{width: "24px", height: "24px"}}
+              style={{ width: "24px", height: "24px" }}
             >
               <path
                 strokeLinecap="round"
@@ -108,7 +115,7 @@ export default function AgentStatusContainer({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              style={{width: "24px", height: "24px"}}
+              style={{ width: "24px", height: "24px" }}
             >
               <path
                 strokeLinecap="round"
@@ -117,7 +124,7 @@ export default function AgentStatusContainer({
               />
             </svg>
           )}
-        </button>
+        </PlayButton>
         <AgentStatusPill
           onClick={() => setIsQuipModalOpen(!isQuipModalOpen)}
           agentState={agentState}
