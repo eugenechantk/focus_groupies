@@ -7,7 +7,11 @@
                 "uuid": "button1",
                 "content": "submit",
                 "size": "large",
-                "position": "top-left",
+                "location":
+                {
+                    "h": 10,
+                    "v": 0
+                },
                 "color": "blue",
                 "color_text": "black"
             },
@@ -15,7 +19,11 @@
                 "uuid": "button2",
                 "content": "submit",
                 "size": "large",
-                "position": "top-left",
+                "location":
+                {
+                    "h": 10,
+                    "v": 0
+                },
                 "color": "blue",
                 "color_text": "black"
             }
