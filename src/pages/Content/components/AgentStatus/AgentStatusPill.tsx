@@ -9,7 +9,7 @@ export default function AgentStatusPill({ onClick, agent, agentState }: { onClic
     <div
       className={clsx(
         agentState === AgentState.THOUGHTS_GENERATED && "cursor-pointer background-white-hover background-white-active",
-        "flex flex-row gap-2 px-3 py-2 background-white rounded-full border border-theme-90 w-fit drop-shadow-lg"
+        "flex flex-row items-center gap-2 px-3 py-2 background-white rounded-full border border-theme-90 w-fit drop-shadow-lg"
       )}
       onClick={onClick}
       style={{direction: "ltr"}}
@@ -19,7 +19,7 @@ export default function AgentStatusPill({ onClick, agent, agentState }: { onClic
         alt="agent profile"
         className="w-8 h-8 rounded-full object-cover"
       />
-      <h3 className="font-poppins text-black font-medium text-[20px] tracking-tight">
+      <h3 className="font-poppins text-black font-medium text-[20px] tracking-tight leading-none">
         {agent.name} {agentState}
       </h3>
     </div>

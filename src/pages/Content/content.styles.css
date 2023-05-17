@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.cursorNameTag {
-  @apply font-mono font-semibold text-[22px] text-['#F9FAFB'] uppercase;
+@layer base {
+  div > * {
+    @apply p-0
+  }
 }
 
 @layer utilities {
