@@ -32,4 +32,8 @@
   .border-black {
     @apply bg-gradient-to-b from-theme-25 from-[63%] to-theme-12 to-[76%];
   }
+
+
+
+  
 }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AgentStatusPill from "./AgentStatusPill";
 import QuipModal from "./QuipModal";
+import root from "react-shadow";
+import styled from "styled-components";
 
 // TODO: change the state and interactivity of the status bar based on the step of the agent loop
 // TODO: change this to reflect the agent info from the backend
@@ -26,13 +28,32 @@ export enum AgentState {
 }
 
 const sampleAgent = {
-  id: '012345',
-  name: 'John',
-  profileImgUrl: "https://images.pexels.com/photos/6274712/pexels-photo-6274712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  id: "012345",
+  name: "John",
+  profileImgUrl:
+    "https://images.pexels.com/photos/6274712/pexels-photo-6274712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   prompt: "You are john",
-}
+};
 
-const sampleQuip = "As of my knowledge cutoff in September 2021, the Google homepage is known for its simplicity and ease of use. However, here are a few suggestions for potential improvements in the design of the Google page:\n1. Enhance visual appeal: While simplicity is a core aspect of Google's design, introducing subtle visual improvements could make the page more visually engaging. This could involve refining the color palette, adding more whitespace, or incorporating tasteful animations to create a more modern look and feel.\n2. Customizable interface: Allowing users to personalize certain elements of the Google page, such as background themes or layout options, could enhance the user experience. Offering different customization options could make the page feel more tailored to individual preferences."
+const sampleQuip =
+  "As of my knowledge cutoff in September 2021, the Google homepage is known for its simplicity and ease of use. However, here are a few suggestions for potential improvements in the design of the Google page:\n1. Enhance visual appeal: While simplicity is a core aspect of Google's design, introducing subtle visual improvements could make the page more visually engaging. This could involve refining the color palette, adding more whitespace, or incorporating tasteful animations to create a more modern look and feel.\n2. Customizable interface: Allowing users to personalize certain elements of the Google page, such as background themes or layout options, could enhance the user experience. Offering different customization options could make the page feel more tailored to individual preferences.";
+
+const RootContainer = styled.div`
+  margin-left: 48px;
+  margin-right: 48px;
+  max-width: 600px;
+  width: 100%;
+`;
+
+const PillContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+  position: relative;
+  z-index: 20;
+  right: calc(50% - 130px);
+  direction: rtl;
+`;
 
 export default function AgentStatusContainer({
   agent = sampleAgent,
@@ -43,13 +64,26 @@ export default function AgentStatusContainer({
 }: IAgentStatusContainerProps) {
   const [isQuipModalOpen, setIsQuipModalOpen] = useState(true);
   return (
-    <div className="mx-6 max-w-[600px] w-full">
+    <RootContainer>
       {/* Status */}
-      <div
-        className="flex flex-row gap-2 relative z-20 right-[calc(50%-130px)]"
-        style={{ direction: "rtl" }}
-      >
-        <button className="w-12 h-12 flex flex-row items-center justify-center rounded-full background-white drop-shadow-lg background-white-hover background-white-active" onClick={setIsAgentPaused}>
+      <PillContainer>
+        <button
+          onClick={setIsAgentPaused}
+          style={{
+            border: "1px solid",
+            borderColor: "#F2F2F2",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "12px",
+            gap: "16px",
+            width: "48px",
+            height: "48px",
+            background: "linear-gradient(180deg, #FFFFFF 39.58%, #E6E6E6 100%)",
+            borderRadius: "1000px",
+          }}
+        >
           {isAgentPaused ? (
             // Play icon
             <svg
@@ -58,7 +92,7 @@ export default function AgentStatusContainer({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6"
+              style={{width: "24px", height: "24px"}}
             >
               <path
                 strokeLinecap="round"
@@ -74,7 +108,7 @@ export default function AgentStatusContainer({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6"
+              style={{width: "24px", height: "24px"}}
             >
               <path
                 strokeLinecap="round"
@@ -89,11 +123,11 @@ export default function AgentStatusContainer({
           agentState={agentState}
           agent={agent}
         />
-      </div>
+      </PillContainer>
       {/* Quip modal */}
       {agentState === AgentState.THOUGHTS_GENERATED && (
         <QuipModal isQuipModalOpen={isQuipModalOpen} quip={quip} />
       )}
-    </div>
+    </RootContainer>
   );
 }
