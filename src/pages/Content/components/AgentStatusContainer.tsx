@@ -5,10 +5,9 @@ import QuipModal from "./QuipModal";
 export default function AgentStatusContainer() {
   const [isQuipModalOpen, setIsQuipModalOpen] = useState(false);
   return (
-    <div className="mx-6 max-w-[600px]">
+    <div className="mx-6 max-w-[600px] w-full">
       {/* Status */}
-      <div className="flex flex-row gap-2 w-fit mx-auto relative z-20">
-        <AgentStatusBar onClick={() => setIsQuipModalOpen(!isQuipModalOpen)} />
+      <div className="flex flex-row gap-2 relative z-20 right-[calc(50%-130px)]" style={{direction: "rtl"}}>
         <button className="w-12 h-12 flex flex-row items-center justify-center rounded-full background-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -25,6 +24,7 @@ export default function AgentStatusContainer() {
             />
           </svg>
         </button>
+        <AgentStatusBar onClick={() => setIsQuipModalOpen(!isQuipModalOpen)} />
       </div>
       <QuipModal isQuipModalOpen={isQuipModalOpen} />
     </div>
