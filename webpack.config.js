@@ -8,6 +8,8 @@ var webpack = require('webpack'),
 var { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 var ReactRefreshTypeScript = require('react-refresh-typescript');
+var tailwindcss = require('tailwindcss')
+var autoprefixer = require('autoprefixer')
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
 
@@ -58,6 +60,10 @@ var options = {
   module: {
     rules: [
       {
+        test: /\.png$/,
+        use: 'file-loader'
+      },
+      {
         // look for .css or .scss files
         test: /\.(css|scss)$/,
         // in the `src` directory
@@ -74,6 +80,14 @@ var options = {
               sourceMap: true,
             },
           },
+          { loader:'postcss-loader',
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [tailwindcss, autoprefixer]
+              }
+            }
+          }
         ],
       },
       {
