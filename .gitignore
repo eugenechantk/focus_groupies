@@ -29,3 +29,4 @@ yarn.lock
 
 # Ignore npm debug files
 npm-debug.log*
+.env
