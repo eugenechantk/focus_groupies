@@ -83,7 +83,7 @@ export const Cursor = ({ targetRef, name }) => {
           flexDirection: "column-reverse",
           alignItems: "center",
           justifyContent: "center",
-          position: "absolute",
+          position: "fixed",
           ...position,
         }}
         onClick={handleClick}

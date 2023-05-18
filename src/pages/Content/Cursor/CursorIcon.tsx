@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./CursorIcon.css";
 
 export const CursorIcon = ({ clicked }) => {
@@ -7,7 +7,7 @@ export const CursorIcon = ({ clicked }) => {
       style={{
         margin: "0em 5em -1.5em 0px",
         zIndex: 1001,
-        transition: "transform 0.3s",
+        transition: "transform 0.5s",
       }}
       className={clicked ? "shrink" : ""}
     >
