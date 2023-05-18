@@ -87,8 +87,10 @@ const getRandomClickableElement = () => {
     const isNotAtOrigin =
       element.getBoundingClientRect().x !== 0 &&
       element.getBoundingClientRect().y !== 0;
+
+    const hasDomain = !element.href || element.href.includes(window.location.hostname); 
     return (
-      (hasClickableRole || isClickableTag || isClickableInput) && isNotAtOrigin
+      (hasClickableRole || isClickableTag || isClickableInput) && isNotAtOrigin && hasDomain
     );
   });
 
