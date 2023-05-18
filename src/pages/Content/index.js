@@ -1,5 +1,4 @@
 import { printLine } from "./modules/print";
-<<<<<<< HEAD
 import logo from "../../assets/img/logo.svg";
 import cursor from "../../assets/img/cursor.svg";
 import React from "react";
@@ -7,20 +6,13 @@ import { createRoot } from "react-dom/client";
 import AgentStatusContainer from "./components/AgentStatus/AgentStatusContainer";
 import "./content.styles.css";
 import { Cursor } from "./Cursor";
-=======
 import React from "react";
 import AgentStatusContainer from "./components/AgentStatus/AgentStatusContainer";
-import "./content.styles.css";
 import { render } from "react-dom";
 import { StyleSheetManager } from "styled-components";
->>>>>>> 365727f (fix: refactored all agent status bar component in shadow-root)
 
 console.log("Content script works!");
 console.log("Must reload extension for modifications to take effect.");
-
-chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
-  console.log(response.farewell);
-});
 
 printLine("Using the 'printLine' function from the Print Module");
 
@@ -44,7 +36,7 @@ linkNode.rel = "stylesheet";
 linkNode.href = "//fonts.googleapis.com/css?family=Poppins";
 document.head.appendChild(linkNode);
 
-// const container = document.getElementById("react-root");
+const container = document.getElementById("react-root");
 // const root = createRoot(container);
 
 const host = document.querySelector("#react-root");

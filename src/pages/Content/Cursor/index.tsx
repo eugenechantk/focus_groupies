@@ -65,6 +65,7 @@ export const Cursor = ({ targetRef, name }) => {
 
   const handleClick = () => {
     clicked === false && setClicked(!clicked);
+    console.log("click!!");
     setTimeout(() => {
       setClicked(false);
     }, 300);
