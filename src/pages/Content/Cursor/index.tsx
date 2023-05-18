@@ -14,6 +14,7 @@ const CursorBase = styled.div`
   top: 150px;
   left: 150px;
   transition: all 0.3s ease;
+  z-index: 10000;
 `;
 
 const StyledCursor = styled(CursorBase)<{ top: number; left: number }>`

@@ -44,6 +44,8 @@ const RootContainer = styled.div`
   margin-left: 48px;
   margin-right: 48px;
   width: 600px;
+  z-index: 10000000;
+  position: sticky;
 `;
 
 const PillContainer = styled.div`
