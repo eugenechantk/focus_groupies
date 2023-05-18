@@ -38,6 +38,12 @@ if (body) {
   body.prepend(app);
 }
 
+const linkNode = document.createElement("link"); 
+linkNode.type = "text/css"; 
+linkNode.rel = "stylesheet"; 
+linkNode.href = "//fonts.googleapis.com/css?family=Poppins";
+document.head.appendChild(linkNode);
+
 // const container = document.getElementById("react-root");
 // const root = createRoot(container);
 
@@ -49,11 +55,7 @@ const styleSlot = document.createElement("section");
 // append the styleSlot inside the shadow
 shadow.appendChild(styleSlot);
 
-const linkNode = document.createElement("link"); 
-linkNode.type = "text/css"; 
-linkNode.rel = "stylesheet"; 
-linkNode.href = "//fonts.googleapis.com/css?family=Poppins";
-document.head.appendChild(linkNode);
+
 
 
 // create the element where we would render our app
