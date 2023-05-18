@@ -56,8 +56,8 @@ if (body) {
 const getElementCoordinates = (element) => {
   const rect = element.getBoundingClientRect();
   return {
-    x: rect.x,
-    y: rect.y,
+    x: rect.x + rect.width / 2,
+    y: rect.y + rect.height / 2,
   };
 };
 
@@ -77,7 +77,12 @@ const getRandomClickableElement = () => {
       tagName === "input" &&
       ["submit", "button", "reset", "image"].includes(element.type);
 
-    return hasClickableRole || isClickableTag || isClickableInput;
+    const isNotAtOrigin =
+      element.getBoundingClientRect().x !== 0 &&
+      element.getBoundingClientRect().y !== 0;
+    return (
+      (hasClickableRole || isClickableTag || isClickableInput) && isNotAtOrigin
+    );
   });
 
   // Select a random element from the clickable elements
@@ -114,22 +119,44 @@ const renderIn = document.createElement("div");
 styleSlot.appendChild(renderIn);
 
 const App = () => {
-  const [position, setPosition] = React.useState({ x: 0, y: 0 });
+  const [position, setPosition] = React.useState({ x: window.innerWidth * 0.4, y: window.innerHeight * 0.3 });
+  const [cursorTimeout, setCursorTimeout] = React.useState(50000)
 
   React.useEffect(() => {
-    const nextElement = getRandomClickableElement();
-    const nextPosition = getElementCoordinates(nextElement);
-    console.log(nextElement, nextPosition);
-    setPosition(nextPosition);
-    console.log('new cursor position: ', position)
-  }, [])
+    const simulateClick = async () => {
+      const nextElement = getRandomClickableElement();
+      console.log(nextElement);
+      const nextPosition = getElementCoordinates(nextElement);
+      console.log(nextElement.getBoundingClientRect());
+      console.log(nextElement, nextPosition);
+      if (nextPosition.y >= window.innerHeight) {
+        // Scrolling the page itself
+        window.scrollTo({
+          top: nextPosition.y - window.innerHeight / 2 + 180,
+          behavior: "smooth",
+        });
+        // setPosition({ x: position.x + 320, y: position.y + 120 });
+        // Set the cursor position relative to the window
+        setTimeout(() => {
+          // console.log("y scroll by: ", window.scrollY);
+          // console.log("x scroll by: ", window.scrollX);
+          const newPos = {
+            x: nextPosition.x,
+            y: nextPosition.y - window.scrollY,
+          }
+          setPosition(newPos);
+          setCursorTimeout(2000)
+        }, 1000);
+      } else {
+        setPosition(nextPosition);
+      }
+    };
+    simulateClick();
+  }, []);
   return (
     <>
       <AgentStatusContainer />
-      <Cursor
-        name="John"
-        position={position}
-      />
+      <Cursor name="John" position={position} timeout={cursorTimeout}/>
     </>
   );
 };
