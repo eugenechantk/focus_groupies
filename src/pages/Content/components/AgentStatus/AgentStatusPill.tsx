@@ -7,6 +7,7 @@ interface IAgentStatusPillProps {
   onClick?: () => void;
   agent: IAgentInfo;
   agentState: AgentState;
+  quip:string;
 }
 
 const PillBase = styled.div`
@@ -47,6 +48,7 @@ export default function AgentStatusPill({
   onClick,
   agent,
   agentState,
+  quip,
 }: IAgentStatusPillProps) {
   return (
     <PillContainer onClick={onClick} agentState={agentState}>
@@ -72,7 +74,7 @@ export default function AgentStatusPill({
           marginBottom: "0px",
         }}
       >
-        {agent.name} {agentState}
+        {agent.name} {quip ? 'thinks that...' : 'is browsing...'}
       </h3>
     </PillContainer>
   );

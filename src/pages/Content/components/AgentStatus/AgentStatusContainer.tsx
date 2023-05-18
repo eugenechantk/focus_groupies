@@ -17,7 +17,7 @@ interface IAgentStatusContainerProps {
   agentState: AgentState;
   isAgentPaused: boolean;
   setIsAgentPaused: () => void;
-  quip?: string;
+  quip: string;
   wasclicked: boolean;
   setWasclicked: (wasclicked: boolean) => void;
 }
@@ -117,6 +117,7 @@ export default function AgentStatusContainer({
           onClick={() => setIsQuipModalOpen(!isQuipModalOpen)}
           agentState={agentState}
           agent={agent}
+          quip={quip}
         />
       </PillContainer>
       {/* Quip modal */}

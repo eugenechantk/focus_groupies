@@ -21,7 +21,7 @@ import {scrapeDOM} from "./modules/scraper";
 console.log("Content script works!");
 console.log("Must reload extension for modifications to take effect.");
 
-function requestFeedback(persona, domSummary) {
+function requestFeedback(persona, domSummary, setQuip) {
   console.log("sending request");
   chrome.runtime.sendMessage(
     {
@@ -32,6 +32,7 @@ function requestFeedback(persona, domSummary) {
     (response) => {
       // handle the response here
       console.log(response);
+      setQuip(response);
     }
   );
 }
@@ -131,6 +132,11 @@ const App = () => {
   const [cursorTimeout, setCursorTimeout] = React.useState(50000)
   const [wasclicked, setWasclicked] = useState(false);
   const [quip, setQuip] = useState("");
+
+  React.useEffect(() => {
+    console.log("starting scrape");
+    requestFeedback("angry steve jobs", scrapeDOM(), setQuip);
+  }, [])
 
   React.useEffect(() => {
     const simulateClick = async () => {
