@@ -46,4 +46,21 @@ export default class GPTAPIclient{
             console.error('Error:', error);
         }    
     }
+
+    async request_continuous(data, storage_id){
+        var history = await chrome.storage.local.get([storage_id]);
+        console.log(storage_id, history);
+        if (Object.keys(history).length === 0){
+            history = [];
+        } else {
+            history = JSON.parse(history[storage_id]);
+        }
+        history = history.concat(data);
+        var all_data = {
+            'messages': history,
+            'model': 'gpt-4'
+        };
+        await chrome.storage.local.set({[storage_id]: JSON.stringify(history)});
+        return this.request(all_data);
+    }
 }
