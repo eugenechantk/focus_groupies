@@ -407,7 +407,7 @@ const Popup = () => {
               style={{
                 fontFamily: "Poppins",
                 fontStyle: "normal",
-                fontWeight: 500,
+                fontWeight: 800,
                 fontSize: "40px",
                 lineHeight: "140%",
                 textAlign: "center",
