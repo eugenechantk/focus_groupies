@@ -49,13 +49,39 @@ const requestDom = () =>
 const updateQuip = (quip) =>
     sendMessageToCurrentTab({type: 'updateQuip', quip})
 
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+    }
+    return result;
+}
+
 const onClick = async () => {
     console.log("sending request")
+    const requestId = makeid(5)
+
+    chrome.runtime.onConnect.addListener(function (port) {
+        if (port.name === requestId) {
+            port.onMessage.addListener(function (msg) {
+                updateQuip(msg.partial)
+            });
+        }
+    });
+
     const response = await chrome.runtime.sendMessage({
         type: 'getFeedback',
         persona: "angry steve jobs",
-        domSummary: await requestDom()
+        domSummary: await requestDom(),
+        requestId: requestId
     });
+
+
+    await updateQuip(response)
     console.log("got quip from background thread:" + response);
     await updateQuip(response)
 }
