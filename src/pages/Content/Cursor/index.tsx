@@ -107,9 +107,9 @@ const NameTag = ({ name }: { name: string }) => {
   return (
     <div
       style={{
-        fontFamily: "Source Code Pro",
+        fontFamily: "monospace",
         fontStyle: "normal",
-        fontWeight: "600",
+        fontWeight: "500",
         fontSize: "22px",
         letterSpacing: "0.02em",
         textTransform: "uppercase",
