@@ -3,62 +3,63 @@
 import React, { useState, useEffect } from "react";
 import { CursorIcon } from "./CursorIcon";
 import { CSSTransition } from "react-transition-group";
-
 import styled from "styled-components";
 
-const StyledCursor = styled.div`
+const CursorBase = styled.div`
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: ${({ top }) => top}px;
-  left: ${({ left }) => left}px;
   transition: top 300ms ease, left 300ms ease;
+`;
+
+const StyledCursor = styled(CursorBase)<{ top: number; left: number }>`
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
 `;
 
 export const Cursor = ({
   name,
-  x,
-  y,
+  position
 }: {
   name: string;
-  x: number;
-  y: number;
+  position: { x: number; y: number };
 }) => {
-  const [position, setPosition] = useState({ top: 0, left: 0 });
+  console.log('coordinates passed to cursor', position)
   const [active, setActive] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const [xCoord, setXCoord] = useState(x);
-  const [yCoord, setYCoord] = useState(y);
+  // const [xCoord, setXCoord] = useState(x);
+  // const [yCoord, setYCoord] = useState(y);
 
-  useEffect(() => {
-    setPosition({
-      top: yCoord - window.scrollY,
-      left: xCoord - window.scrollX,
-    });
-    setActive(true);
-  }, [xCoord, yCoord]);
+  // useEffect(() => {
+  //   setPosition({
+  //     top: yCoord - window.scrollY,
+  //     left: xCoord - window.scrollX,
+  //   });
+  //   setActive(true);
+  // }, [xCoord, yCoord]);
 
-  const handleClick = () => {
-    setYCoord(yCoord + 100);
-    setXCoord(xCoord + 100);
+  // for animation when simulating a click
+  // const handleClick = () => {
+  //   setYCoord(yCoord + 100);
+  //   setXCoord(xCoord + 100);
 
-    setTimeout(() => {
-      clicked === false && setClicked(!clicked);
-      console.log("click!!");
-      setTimeout(() => {
-        setClicked(false);
-      }, 300);
-    }, 1000);
-  };
+  //   setTimeout(() => {
+  //     clicked === false && setClicked(!clicked);
+  //     console.log("click!!");
+  //     setTimeout(() => {
+  //       setClicked(false);
+  //     }, 300);
+  //   }, 1000);
+  // };
 
   return (
     <CSSTransition in={active} timeout={300} onExited={() => setActive(false)}>
       <StyledCursor
-        top={position.top}
-        left={position.left}
-        onClick={handleClick}
+        top={position.y}
+        left={position.x}
+        // onClick={handleClick}
       >
         <NameTag name={name} />
         <CursorIcon clicked={clicked} />
@@ -71,7 +72,7 @@ interface Props {
   target: HTMLElement;
 }
 
-const NameTag = ({ name }) => {
+const NameTag = ({ name }: {name: string}) => {
   return (
     <div
       style={{

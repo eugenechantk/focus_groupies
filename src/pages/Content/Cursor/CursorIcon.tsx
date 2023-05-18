@@ -3,8 +3,12 @@ import "./CursorIcon.css";
 
 import { styled, css } from "styled-components";
 
-const AnimationDiv = css`
-  @keyframes shrink {
+const Base = styled.div``;
+
+const StyledDiv = styled(Base)<{ clicked: boolean }>`
+  ${(props) =>
+    props.clicked &&
+    `@keyframes shrink {
     0% {
       transform: scale(1);
     }
@@ -15,13 +19,7 @@ const AnimationDiv = css`
       transform: scale(1);
     }
   }
-  animation: shrink 0.3s;
-`;
-
-const Base = styled.div``;
-
-const StyledDiv = styled(Base)<{ clicked: boolean }>`
-  ${(props) => props.clicked && AnimationDiv}
+  animation: shrink 0.3s;`}
 `;
 
 export const CursorIcon = ({ clicked }: { clicked: boolean }) => {
