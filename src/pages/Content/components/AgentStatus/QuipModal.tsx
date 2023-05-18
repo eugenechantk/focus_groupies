@@ -4,6 +4,7 @@ import styled from "styled-components";
 // TODO: Mimic the raw quip text format and set as prop
 // TODO: add animation for expanding and collapsing
 // TODO: add animation for showing text word by word
+
 export default function QuipModal({
   isQuipModalOpen,
   quip,
@@ -27,6 +28,7 @@ export default function QuipModal({
             width: "100%",
             height: "170px",
             overflowY: "scroll",
+            whiteSpace: 'pre-line',
             borderRadius: "0.5rem",
             backgroundImage:
               "linear-gradient(180deg, #404040 0%, #0D0D0D 68.82%)",
