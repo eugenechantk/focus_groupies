@@ -18,6 +18,8 @@ interface IAgentStatusContainerProps {
   isAgentPaused: boolean;
   setIsAgentPaused: () => void;
   quip?: string;
+  wasclicked: boolean;
+  setWasclicked: () => void;
 }
 
 // TODO: change this to reflect the agent state from the backend
@@ -83,13 +85,15 @@ export default function AgentStatusContainer({
   isAgentPaused,
   setIsAgentPaused,
   quip = sampleQuip,
+  wasclicked,
+  setWasclicked
 }: IAgentStatusContainerProps) {
   const [isQuipModalOpen, setIsQuipModalOpen] = useState(true);
   return (
     <RootContainer>
       {/* Status */}
       <PillContainer>
-        <PlayButton onClick={setIsAgentPaused}>
+        <PlayButton onClick={() => {console.log("wasclicked:",wasclicked);setWasclicked(!wasclicked);}}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
