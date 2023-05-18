@@ -106,7 +106,6 @@ Poppins.rel = "stylesheet";
 Poppins.href = "//fonts.googleapis.com/css?family=Poppins";
 document.head.appendChild(Poppins);
 
-
 const container = document.getElementById("react-root");
 // const root = createRoot(container);
 
@@ -134,6 +133,7 @@ const App = () => {
     y: window.innerHeight * 0.3,
   });
   const [cursorTimeout, setCursorTimeout] = React.useState(50000);
+  const [cursorClicked, setCursorClicked] = React.useState(false);
   const [wasclicked, setWasclicked] = useState(false);
   const [quip, setQuip] = useState("");
 
@@ -166,17 +166,22 @@ const App = () => {
             y: nextPosition.y - window.scrollY,
           };
           setPosition(newPos);
-          setCursorTimeout(2000);
-        }, 1000);
+        }, 700);
       } else {
         setPosition(nextPosition);
       }
-      if (wasclicked) {
+      setTimeout(() => {
+        setCursorClicked(true);
+      }, 1000)
+      setTimeout(() => {
         nextElement.click();
         setWasclicked(false);
-      }
+        setCursorClicked(false);
+      },1500);
     };
-    simulateClick();
+    if (wasclicked) {
+      simulateClick();
+    }
   }, [wasclicked]);
   return (
     <>
@@ -185,7 +190,11 @@ const App = () => {
         setWasclicked={setWasclicked}
         quip={quip}
       />
-      <Cursor name="John" position={position} timeout={cursorTimeout} />
+      <Cursor
+        name="John"
+        position={position}
+        clicked={cursorClicked}
+      />
     </>
   );
 };

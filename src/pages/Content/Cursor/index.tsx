@@ -39,15 +39,14 @@ const StyledCursor = styled(CursorBase)<{ top: number; left: number }>`
 export const Cursor = ({
   name,
   position,
-  timeout,
+  clicked,
 }: {
   name: string;
   position: { x: number; y: number };
-  timeout: number;
+  clicked: boolean;
 }) => {
   console.log("coordinates passed to cursor", position);
   const [active, setActive] = useState(false);
-  const [clicked, setClicked] = useState(false);
   
   // const ref = useRef(null);
   // const [xCoord, setXCoord] = useState(x);
@@ -67,24 +66,10 @@ export const Cursor = ({
   //   setActive(true);
   // }, [xCoord, yCoord]);
 
-  // for animation when simulating a click
-  // const handleClick = () => {
-  //   setYCoord(yCoord + 100);
-  //   setXCoord(xCoord + 100);
-
-  //   setTimeout(() => {
-  //     clicked === false && setClicked(!clicked);
-  //     console.log("click!!");
-  //     setTimeout(() => {
-  //       setClicked(false);
-  //     }, 300);
-  //   }, 1000);
-  // };
-
   return (
     <CSSTransition
       in={active}
-      timeout={timeout}
+      timeout={300}
       onExited={() => setActive(false)}
     >
       <StyledCursor
