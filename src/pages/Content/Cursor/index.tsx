@@ -107,10 +107,12 @@ const NameTag = ({ name }: { name: string }) => {
   return (
     <div
       style={{
+        fontFamily: "Source Code Pro",
         fontStyle: "normal",
         fontWeight: "600",
         fontSize: "22px",
         letterSpacing: "0.02em",
+        textTransform: "uppercase",
 
         /* gray/50 */
         color: "#F9FAFB",

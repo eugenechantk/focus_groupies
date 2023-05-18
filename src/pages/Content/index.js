@@ -100,11 +100,17 @@ const getRandomClickableElement = () => {
 };
 
 // FOR SHADOW-DOM IMPLEMENTATION
-const linkNode = document.createElement("link");
-linkNode.type = "text/css";
-linkNode.rel = "stylesheet";
-linkNode.href = "//fonts.googleapis.com/css?family=Poppins";
-document.head.appendChild(linkNode);
+const Poppins = document.createElement("link");
+Poppins.type = "text/css";
+Poppins.rel = "stylesheet";
+Poppins.href = "//fonts.googleapis.com/css?family=Poppins";
+document.head.appendChild(Poppins);
+
+const SourceSansPro = document.createElement("link");
+SourceSansPro.type = "text/css";
+SourceSansPro.rel = "stylesheet";
+SourceSansPro.href = "//fonts.googleapis.com/css?family=Source+Code+Pro";
+document.head.appendChild(SourceSansPro);
 
 const container = document.getElementById("react-root");
 // const root = createRoot(container);
