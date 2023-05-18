@@ -10,7 +10,7 @@ interface IAgentStatusPillProps {
   quip:string;
 }
 
-const PillBase = styled.div`
+const PillContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -27,23 +27,6 @@ const PillBase = styled.div`
   direction: ltr;
 `;
 
-const PillClickable = css`
-  cursor: pointer;
-  &:hover {
-    background: linear-gradient(180deg, #f2f2f2 39.58%, #e6e6e6 100%);
-    border: 1px solid #f9fafb;
-  }
-  &:active {
-    background: linear-gradient(180deg, #ebebeb 39.58%, #d9d9d9 100%);
-    border: 1px solid #f3f4f6;
-  }
-`;
-
-const PillContainer = styled(PillBase)<{ agentState: AgentState }>`
-  ${(props) =>
-    props.agentState === AgentState.THOUGHTS_GENERATED && PillClickable}
-`;
-
 export default function AgentStatusPill({
   onClick,
   agent,
@@ -51,7 +34,7 @@ export default function AgentStatusPill({
   quip,
 }: IAgentStatusPillProps) {
   return (
-    <PillContainer onClick={onClick} agentState={agentState}>
+    <PillContainer onClick={onClick}>
       <img
         src={agent.profileImgUrl}
         alt="agent profile"
