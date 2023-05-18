@@ -106,11 +106,6 @@ Poppins.rel = "stylesheet";
 Poppins.href = "//fonts.googleapis.com/css?family=Poppins";
 document.head.appendChild(Poppins);
 
-const SourceSansPro = document.createElement("link");
-SourceSansPro.type = "text/css";
-SourceSansPro.rel = "stylesheet";
-SourceSansPro.href = "//fonts.googleapis.com/css?family=Source+Code+Pro";
-document.head.appendChild(SourceSansPro);
 
 const container = document.getElementById("react-root");
 // const root = createRoot(container);

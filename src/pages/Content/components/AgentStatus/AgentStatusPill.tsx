@@ -49,7 +49,6 @@ export default function AgentStatusPill({
         style={{
           fontFamily: "Poppins",
           color: "black",
-          fontWeight: "500",
           fontSize: "20px",
           letterSpacing: "tight",
           lineHeight: "1",
