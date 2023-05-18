@@ -36,7 +36,7 @@ export const scrapeDOM = () => {
             "v" : rect.y*100/bodysize.height,
             "h" : rect.x*100/bodysize.width
         };
-        items.push(temp_dict);
+        items.push(JSON.stringify(temp_dict));
     }
     return items
 };
