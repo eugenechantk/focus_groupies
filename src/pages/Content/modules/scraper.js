@@ -1,3 +1,13 @@
+function randomSample(arr, N) {
+    if (arr.length > N) {
+      const shuffled = arr.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, N);
+    }
+    
+    return arr;
+  }
+const maxItems = 10
+
 export const scrapeDOM = () => {
     const allElements = document.getElementsByTagName('*');
 
@@ -38,5 +48,5 @@ export const scrapeDOM = () => {
         };
         items.push(JSON.stringify(temp_dict));
     }
-    return items
+    return randomSample(items,maxItems)
 };

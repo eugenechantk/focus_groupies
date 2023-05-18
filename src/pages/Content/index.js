@@ -168,3 +168,16 @@ render(
   </StyleSheetManager>,
   renderIn
 );
+
+chrome.runtime.onMessage.addListener(
+  function(msg, sender, sendResponse) {
+      if(msg.type === 'getContent'){
+        console.log("scraping dom for popup");
+        sendResponse(scrapeDOM());
+      } else{
+        console.log("unexpected expected message: "+ JSON.stringify(msg))
+      }
+  }
+);
+
+console.log("done setting up content")

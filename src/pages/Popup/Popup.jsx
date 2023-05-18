@@ -30,12 +30,21 @@ const Button = styled.button`
 // This controls the state of the popup and what to show
 // 'persona_created' | 'loading' | 'landing'
 const step = "landing";
-const onClick = () => {
+const requestDom = () => new Promise((resolve)=>{
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      type: 'getContent'
+  }, (response) => {
+      resolve(response)
+    });
+  });
+})
+const onClick = async () => {
   console.log("sending request")
   chrome.runtime.sendMessage({
       type: 'getFeedback',
       persona: "angry steve jobs",
-      domSummary: scrapeDOM()
+      domSummary: await requestDom()
   }, response => {
       // handle the response here
       console.log("got response:" + response);
@@ -339,7 +348,7 @@ const Popup = () => {
               insights
             </h3>
           </div>
-          <Button onClick={()=>onClick()}>
+          <Button onClick={()=> onClick()}>
             <p
               style={{
                 fontFamily: "Inter",
@@ -359,4 +368,6 @@ const Popup = () => {
   );
 };
 
+
 export default Popup;
+

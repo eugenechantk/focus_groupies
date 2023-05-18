@@ -10,13 +10,13 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     switch (msg.type) {
         case 'getFeedback':
             getFeedback(msg.persona, msg.domSummary).then(reply=>{
+                console.log("sending final thought: "+reply)
                 response(reply);
             }).catch(e => {
                 console.log(e)
                 response(getRandomQuip())
             })
-            
-            break;
+            return true;
         default:
             response('unknown request');
             break;
