@@ -54,7 +54,7 @@ async function getFeedback(persona, domSummary, requestId) {
             "Return an array of:     Likelihood of liking site: 0-100\n    Likelihood of hating site: 0-100\n    Likelihood of being confused by site: 0-100\n    Likelihood of using an emoji in reply: 0-100\n    Likelihood of vulgarity: 0-100\n    Likelihood of excitedness: 0-100\n    Perplexity: 0-100 in that order"),
         getGptMessage("assistant", "I would describe it and the user as" + personaThoughtReply + "\n Going forward I will ensure I do not reply with posttext or pretext, and encorporate this feedback, even if it means using vulgarity or emojis."),
         getFinalQuipMessage(persona, domSummary)
-    ], 'gpt-3.5-turbo', requestId, (string) => {
+    ], 'gpt-4', requestId, (string) => {
         return string;
         // return string.split("\n")
         //     .filter(line => line.trim().length === 0)
