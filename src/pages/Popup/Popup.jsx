@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../../assets/img/logo.svg";
 import "./Popup.css";
 import styled from "styled-components";
+import { scrapeDOM } from "../Content/modules/scraper";
 
 const agentProfilePic =
   "https://images.pexels.com/photos/6274712/pexels-photo-6274712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -29,6 +30,17 @@ const Button = styled.button`
 // This controls the state of the popup and what to show
 // 'persona_created' | 'loading' | 'landing'
 const step = "landing";
+const onClick = () => {
+  console.log("sending request")
+  chrome.runtime.sendMessage({
+      type: 'getFeedback',
+      persona: "angry steve jobs",
+      domSummary: scrapeDOM()
+  }, response => {
+      // handle the response here
+      console.log("got response:" + response);
+  });
+}
 
 const Popup = () => {
   return (
@@ -327,7 +339,7 @@ const Popup = () => {
               insights
             </h3>
           </div>
-          <Button>
+          <Button onClick={()=>onClick()}>
             <p
               style={{
                 fontFamily: "Inter",

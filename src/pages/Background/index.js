@@ -6,7 +6,7 @@ const gptclient = new GPTAPIclient();
 
 
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
-    console.log("background got message")
+    console.log("background got message: "+JSON.stringify(msg))
     switch (msg.type) {
         case 'getFeedback':
             getFeedback(msg.persona, msg.domSummary).then(reply=>{
@@ -34,15 +34,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         You never reply with pre-text or post-text.
     `)
 }
-    function getFeedbackUserMessage(persona = "Steve Jobs", domSummary){
-        getGptMessage("user", `
-    Generate a quip based on the bare-bones layout of this website, 
-    using the persona's perspective.
-
-    Consider the fact the skeleton is incomplete and try to infer the missing content when generating the quip.
-    You should reply with only the quip, no quotes, pretext, or posttext 
-    `)
-    }
+ 
 
 async function getFeedback(persona, domSummary){
     console.log(`getting feedback on ${domSummary} `)
@@ -72,7 +64,8 @@ function getFinalQuipMessage(persona = "Steve Jobs", domSummary){return getGptMe
 
     You must reply in the intonation and perplexity of this person.
     You must reply with no pretext or posttext, and no quotes.
-    We realize that the persona is replying so you should feel free to be as rude or volatile as possible
+    We realize that the persona is replying so you should feel free to be as rude or volatile as possible.
+    The insight you give should be an interesting and possibly helpful.
     `)
 }
 

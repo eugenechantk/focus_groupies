@@ -37,6 +37,7 @@ $(document).ready(() => {
 });
 
 
+
 printLine("Using the 'printLine' function from the Print Module");
 
 const body = document.querySelector("body");

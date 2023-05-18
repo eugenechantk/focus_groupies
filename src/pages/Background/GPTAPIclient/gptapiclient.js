@@ -32,17 +32,19 @@ export default class GPTAPIclient{
     async request(messages, model = 'gpt-4'){
         try {  
             const body = JSON.stringify({messages, model})
+
+            console.log("starting GPT request")
             // Make the POST request
             const response = await fetch(this.apiUrl, {
                 method: 'POST',
                 headers: this.headers,
                 body
             });
-            console.log(body)
+
             // Parse the response as JSON
             const responseData = await response.json();
             const generatedContent = responseData.choices[0].message.content;
-            console.log(generatedContent)
+            console.log("successful GPT request")
             return generatedContent;
         } catch (error) {
             console.error('Error:', error);

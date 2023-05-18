@@ -13,7 +13,7 @@ var options = config.chromeExtensionBoilerplate || {};
 var excludeEntriesToHotReload = options.notHotReload || [];
 
 for (var entryName in config.entry) {
-  if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
+  if (false) {
     config.entry[entryName] = [
       "webpack/hot/dev-server",
       `webpack-dev-server/client?hot=true&hostname=localhost&port=${env.PORT}`,
