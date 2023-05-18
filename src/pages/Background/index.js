@@ -55,11 +55,12 @@ async function getFeedback(persona, domSummary, requestId) {
         getGptMessage("assistant", "I would describe it and the user as" + personaThoughtReply + "\n Going forward I will ensure I do not reply with posttext or pretext, and encorporate this feedback, even if it means using vulgarity or emojis."),
         getFinalQuipMessage(persona, domSummary)
     ], 'gpt-3.5-turbo', requestId, (string) => {
-        return string.split("\n")
-            .filter(line => line.trim().length === 0)
-            .map(line => (line.charAt(0).toUpperCase() + line.slice(1)).toString())
-            .map(line => `• ${line}`)
-            .join("\n")
+        return string;
+        // return string.split("\n")
+        //     .filter(line => line.trim().length === 0)
+        //     .map(line => (line.charAt(0).toUpperCase() + line.slice(1)).toString())
+        //     .map(line => `• ${line}`)
+        //     .join("\n")
     })
     console.log("final thought: " + finalQuip)
     return finalQuip

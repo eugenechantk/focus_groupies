@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AgentStatusPill from "./AgentStatusPill";
 import QuipModal from "./QuipModal";
 import root from "react-shadow";
@@ -19,7 +19,7 @@ interface IAgentStatusContainerProps {
   setIsAgentPaused: () => void;
   quip?: string;
   wasclicked: boolean;
-  setWasclicked: () => void;
+  setWasclicked: (wasclicked: boolean) => void;
 }
 
 // TODO: change this to reflect the agent state from the backend
@@ -84,11 +84,15 @@ export default function AgentStatusContainer({
   agentState = AgentState.THOUGHTS_GENERATED,
   isAgentPaused,
   setIsAgentPaused,
-  quip = sampleQuip,
+  quip,
   wasclicked,
   setWasclicked
 }: IAgentStatusContainerProps) {
   const [isQuipModalOpen, setIsQuipModalOpen] = useState(true);
+
+  useEffect(() => {
+    console.log("quip passed to container:",quip);
+  }, [quip])
   return (
     <RootContainer>
       {/* Status */}
