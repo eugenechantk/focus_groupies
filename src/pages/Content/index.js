@@ -16,12 +16,22 @@ import { scrapeDOM } from "./modules/scraper";
 console.log("Content script works!");
 console.log("Must reload extension for modifications to take effect.");
 
-chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
-  console.log(response.farewell);
-});
+function requestFeedback(persona, domSummary) {
+  console.log("sending request")
+  chrome.runtime.sendMessage({
+      type: 'getFeedback',
+      persona: persona,
+      domSummary: domSummary
+  }, response => {
+      // handle the response here
+      console.log(response);
+  });
+}
 
 $(document).ready(() => {
-    scrapeDOM();
+  scrapeDOM();
+  console.log("starting scrape")
+  requestFeedback("angry steve jobs", scrapeDOM())
 });
 
 

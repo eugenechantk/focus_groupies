@@ -38,10 +38,5 @@ export const scrapeDOM = () => {
         };
         items.push(temp_dict);
     }
-    var j = JSON.stringify(items);
-    chrome.storage.local.set({"items":j}).then(()=>{
-        chrome.storage.local.get(["items"]).then((result)=>{
-            console.log(result.items);
-        });
-    });
+    return items
 };

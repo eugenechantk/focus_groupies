@@ -29,18 +29,20 @@ export default class GPTAPIclient{
         return this.request(data);
     }
 
-    async request(data){
-        try {
+    async request(messages, model = 'gpt-4'){
+        try {  
+            const body = JSON.stringify({messages, model})
             // Make the POST request
             const response = await fetch(this.apiUrl, {
                 method: 'POST',
                 headers: this.headers,
-                body: JSON.stringify(data)
+                body
             });
-    
+            console.log(body)
             // Parse the response as JSON
             const responseData = await response.json();
             const generatedContent = responseData.choices[0].message.content;
+            console.log(generatedContent)
             return generatedContent;
         } catch (error) {
             console.error('Error:', error);
@@ -61,6 +63,6 @@ export default class GPTAPIclient{
             'model': 'gpt-4'
         };
         await chrome.storage.local.set({[storage_id]: JSON.stringify(history)});
-        return this.request(all_data);
+        return this.request(history,  'gpt-4');
     }
 }
