@@ -1,10 +1,21 @@
 export const scrapeDOM = () => {
-    var buttonsAndLinks = document.querySelectorAll('button, a[href]');
+    const allElements = document.getElementsByTagName('*');
+
+    // Filter clickable elements
+    const clickableElements = [].filter.call(allElements, (element) => {
+    const tagName = element.tagName.toLowerCase();
+    const hasClickableRole = element.getAttribute('role') === 'button' || element.getAttribute('role') === 'link';
+    const clickableTags = ['a', 'button', 'input'];
+    const isClickableTag = clickableTags.includes(tagName);
+    const isClickableInput = tagName === 'input' && ['submit', 'button', 'reset', 'image'].includes(element.type);
+    
+    return hasClickableRole || isClickableTag || isClickableInput;
+    });    
     var items = [];
     var globalIDcount = 0;
     var bodysize = document.body.getBoundingClientRect();
     
-    for (var e of buttonsAndLinks){
+    for (var e of clickableElements){
         var temp_dict = {};
         temp_dict['bg-color'] = window.getComputedStyle(e).getPropertyValue("background-color");;
         temp_dict['href'] = e.href;

@@ -4,28 +4,36 @@
         "items" :
         [
             {
-                "uuid": "button1",
+                "id": "button1",
                 "content": "submit",
-                "size": "large",
+                "size": {
+                    "h": "100px",
+                    "w": "100px"
+                },
                 "location":
                 {
                     "h": 10,
                     "v": 0
                 },
-                "color": "blue",
-                "color_text": "black"
+                "bg-color": "blue",
+                "color_text": "black",
+                "href": "black"
             },
             {
-                "uuid": "button2",
+                "id": "button2",
                 "content": "submit",
-                "size": "large",
+                "size": {
+                    "h": "100px",
+                    "w": "100px"
+                },
                 "location":
                 {
                     "h": 10,
                     "v": 0
                 },
                 "color": "blue",
-                "color_text": "black"
+                "color_text": "black",
+                "href": "black"
             }
         ],
         "valid_actions":[
