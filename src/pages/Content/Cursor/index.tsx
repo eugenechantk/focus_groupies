@@ -4,6 +4,69 @@ import React, { useState, useEffect } from "react";
 import { CursorIcon } from "./CursorIcon";
 import { CSSTransition } from "react-transition-group";
 
+import styled from "styled-components";
+
+const StyledCursor = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: ${({ top }) => top}px;
+  left: ${({ left }) => left}px;
+  transition: top 300ms ease, left 300ms ease;
+`;
+
+export const Cursor = ({
+  name,
+  x,
+  y,
+}: {
+  name: string;
+  x: number;
+  y: number;
+}) => {
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [active, setActive] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const [xCoord, setXCoord] = useState(x);
+  const [yCoord, setYCoord] = useState(y);
+
+  useEffect(() => {
+    setPosition({
+      top: yCoord - window.scrollY,
+      left: xCoord - window.scrollX,
+    });
+    setActive(true);
+  }, [xCoord, yCoord]);
+
+  const handleClick = () => {
+    setYCoord(yCoord + 100);
+    setXCoord(xCoord + 100);
+
+    setTimeout(() => {
+      clicked === false && setClicked(!clicked);
+      console.log("click!!");
+      setTimeout(() => {
+        setClicked(false);
+      }, 300);
+    }, 1000);
+  };
+
+  return (
+    <CSSTransition in={active} timeout={300} onExited={() => setActive(false)}>
+      <StyledCursor
+        top={position.top}
+        left={position.left}
+        onClick={handleClick}
+      >
+        <NameTag name={name} />
+        <CursorIcon clicked={clicked} />
+      </StyledCursor>
+    </CSSTransition>
+  );
+};
+
 interface Props {
   target: HTMLElement;
 }
@@ -42,56 +105,5 @@ const NameTag = ({ name }) => {
     >
       {name}
     </div>
-  );
-};
-
-export const Cursor = ({ targetRef, name }) => {
-  const [position, setPosition] = useState({ top: 0, left: 0 });
-  const [active, setActive] = useState(false);
-  const [clicked, setClicked] = useState(false);
-
-  useEffect(() => {
-    if (targetRef && targetRef.current) {
-      const targetElement = targetRef.current;
-      const { top, left, width, height } =
-        targetElement.getBoundingClientRect();
-      setPosition({
-        top: top + window.scrollY - height / 2,
-        left: left + window.scrollX - width / 2,
-      });
-      setActive(true);
-    }
-  }, [targetRef]);
-
-  const handleClick = () => {
-    clicked === false && setClicked(!clicked);
-    console.log("click!!");
-    setTimeout(() => {
-      setClicked(false);
-    }, 300);
-  };
-
-  return (
-    <CSSTransition
-      in={active}
-      timeout={300}
-      classNames="circle"
-      onExited={() => setActive(false)}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column-reverse",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "fixed",
-          ...position,
-        }}
-        onClick={handleClick}
-      >
-        <NameTag name={name} />
-        <CursorIcon clicked={clicked} />
-      </div>
-    </CSSTransition>
   );
 };

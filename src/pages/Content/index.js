@@ -30,9 +30,43 @@ if (body) {
   body.prepend(app);
 }
 
-const linkNode = document.createElement("link"); 
-linkNode.type = "text/css"; 
-linkNode.rel = "stylesheet"; 
+const getElementCoordinates = (element) => {
+  const rect = element.getBoundingClientRect();
+  return {
+    x: rect.x,
+    y: rect.y,
+  };
+};
+
+const getRandomClickableElement = () => {
+  // Get all elements in the DOM
+  const allElements = document.getElementsByTagName("*");
+
+  // Filter clickable elements
+  const clickableElements = [].filter.call(allElements, (element) => {
+    const tagName = element.tagName.toLowerCase();
+    const hasClickableRole =
+      element.getAttribute("role") === "button" ||
+      element.getAttribute("role") === "link";
+    const clickableTags = ["a", "button", "input"];
+    const isClickableTag = clickableTags.includes(tagName);
+    const isClickableInput =
+      tagName === "input" &&
+      ["submit", "button", "reset", "image"].includes(element.type);
+
+    return hasClickableRole || isClickableTag || isClickableInput;
+  });
+
+  // Select a random element from the clickable elements
+  const randomIndex = Math.floor(Math.random() * clickableElements.length);
+  const randomClickableElement = clickableElements[randomIndex];
+
+  return randomClickableElement;
+};
+
+const linkNode = document.createElement("link");
+linkNode.type = "text/css";
+linkNode.rel = "stylesheet";
 linkNode.href = "//fonts.googleapis.com/css?family=Poppins";
 document.head.appendChild(linkNode);
 
@@ -58,6 +92,7 @@ styleSlot.appendChild(renderIn);
 render(
   <StyleSheetManager target={styleSlot}>
     <AgentStatusContainer />
+    <Cursor name="John" x={100} y={100} />
   </StyleSheetManager>,
   renderIn
 );
