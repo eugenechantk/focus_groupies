@@ -7,11 +7,15 @@ import AgentStatusContainer from "./components/AgentStatus/AgentStatusContainer"
 import "./content.styles.css";
 import { Cursor } from "./Cursor";
 import React, { useEffect } from "react";
+import {printLine} from "./modules/print";
+import "./content.styles.css";
+import {Cursor} from "./Cursor";
+import React, {useEffect, useState} from "react";
 import AgentStatusContainer from "./components/AgentStatus/AgentStatusContainer";
-import { render } from "react-dom";
-import { StyleSheetManager } from "styled-components";
+import {render} from "react-dom";
+import {StyleSheetManager} from "styled-components";
 import $ from "jquery";
-import { scrapeDOM } from "./modules/scraper";
+import {scrapeDOM} from "./modules/scraper";
 
 console.log("Content script works!");
 console.log("Must reload extension for modifications to take effect.");
@@ -43,7 +47,7 @@ printLine("Using the 'printLine' function from the Print Module");
 const body = document.querySelector("body");
 const app = document.createElement("div");
 app.style.cssText =
-  "z-index:10000;position:fixed;bottom:16px;width:100%;display:flex;justify-content:center;";
+    "z-index:10000;position:fixed;bottom:16px;width:100%;display:flex;justify-content:center;";
 
 app.id = "react-root";
 
@@ -51,7 +55,7 @@ app.id = "react-root";
 const navBar = document.getElementsByClassName("navbar-brand mr-1");
 
 if (body) {
-  body.prepend(app);
+    body.prepend(app);
 }
 
 const getElementCoordinates = (element) => {
@@ -63,20 +67,20 @@ const getElementCoordinates = (element) => {
 };
 
 const getRandomClickableElement = () => {
-  // Get all elements in the DOM
-  const allElements = document.getElementsByTagName("*");
+    // Get all elements in the DOM
+    const allElements = document.getElementsByTagName("*");
 
-  // Filter clickable elements
-  const clickableElements = [].filter.call(allElements, (element) => {
-    const tagName = element.tagName.toLowerCase();
-    const hasClickableRole =
-      element.getAttribute("role") === "button" ||
-      element.getAttribute("role") === "link";
-    const clickableTags = ["a", "button", "input"];
-    const isClickableTag = clickableTags.includes(tagName);
-    const isClickableInput =
-      tagName === "input" &&
-      ["submit", "button", "reset", "image"].includes(element.type);
+    // Filter clickable elements
+    const clickableElements = [].filter.call(allElements, (element) => {
+        const tagName = element.tagName.toLowerCase();
+        const hasClickableRole =
+            element.getAttribute("role") === "button" ||
+            element.getAttribute("role") === "link";
+        const clickableTags = ["a", "button", "input"];
+        const isClickableTag = clickableTags.includes(tagName);
+        const isClickableInput =
+            tagName === "input" &&
+            ["submit", "button", "reset", "image"].includes(element.type);
 
     const isNotAtOrigin =
       element.getBoundingClientRect().x !== 0 &&
@@ -86,11 +90,11 @@ const getRandomClickableElement = () => {
     );
   });
 
-  // Select a random element from the clickable elements
-  const randomIndex = Math.floor(Math.random() * clickableElements.length);
-  const randomClickableElement = clickableElements[randomIndex];
+    // Select a random element from the clickable elements
+    const randomIndex = Math.floor(Math.random() * clickableElements.length);
+    const randomClickableElement = clickableElements[randomIndex];
 
-  return randomClickableElement;
+    return randomClickableElement;
 };
 
 // FOR SHADOW-DOM IMPLEMENTATION
@@ -104,7 +108,7 @@ const container = document.getElementById("react-root");
 // const root = createRoot(container);
 
 const host = document.querySelector("#react-root");
-const shadow = host.attachShadow({ mode: "open" });
+const shadow = host.attachShadow({mode: "open"});
 
 // create a slot where we will attach the StyleSheetManager
 const styleSlot = document.createElement("section");
@@ -118,6 +122,8 @@ shadow.appendChild(styleSlot);
 const renderIn = document.createElement("div");
 // append the renderIn element inside the styleSlot
 styleSlot.appendChild(renderIn);
+const Container = () => {
+    const [quip, setQuip] = useState("-no set-")
 
 const App = () => {
   const [position, setPosition] = React.useState({ x: window.innerWidth * 0.4, y: window.innerHeight * 0.3 });
@@ -169,15 +175,20 @@ render(
   renderIn
 );
 
-chrome.runtime.onMessage.addListener(
-  function(msg, sender, sendResponse) {
-      if(msg.type === 'getContent'){
-        console.log("scraping dom for popup");
-        sendResponse(scrapeDOM());
-      } else{
-        console.log("unexpected expected message: "+ JSON.stringify(msg))
-      }
-  }
-);
+function setupListeners(setQuip) {
+    chrome.runtime.onMessage.addListener(
+        function (msg, sender, sendResponse) {
+            if (msg.type === 'getContent') {
+                console.log("scraping dom for popup");
+                sendResponse(scrapeDOM());
+            } else if (msg.type === 'updateQuip') {
+                setQuip(msg.quip)
+            } else {
+                console.log("unexpected expected message: " + JSON.stringify(msg))
+            }
+        }
+    );
+}
 
-console.log("done setting up content")
+
+console.log("done setting up content");
