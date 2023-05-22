@@ -1,18 +1,13 @@
 import { printLine } from "./modules/print";
-import logo from "../../assets/img/logo.svg";
-import cursor from "../../assets/img/cursor.svg";
-import React from "react";
-import { createRoot } from "react-dom/client";
-import AgentStatusContainer from "./components/AgentStatus/AgentStatusContainer";
 import "./content.styles.css";
 import { Cursor } from "./Cursor";
-import React, { useEffect } from "react";
-import {printLine} from "./modules/print";
+import { printLine } from "./modules/print";
 import "./content.styles.css";
-import {Cursor} from "./Cursor";
-import React, {useEffect, useState} from "react";
-import React, { useEffect, useState } from "react";
-import AgentStatusContainer, { sampleAgent } from "./components/AgentStatus/AgentStatusContainer";
+import { Cursor } from "./Cursor";
+import React, { useState } from "react";
+import AgentStatusContainer, {
+  sampleAgent,
+} from "./components/AgentStatus/AgentStatusContainer";
 import { render } from "react-dom";
 import { StyleSheetManager } from "styled-components";
 import $ from "jquery";
@@ -42,8 +37,6 @@ $(document).ready(() => {
   requestFeedback("angry steve jobs", scrapeDOM());
 });
 
-
-
 printLine("Using the 'printLine' function from the Print Module");
 
 const body = document.querySelector("body");
@@ -69,36 +62,39 @@ const getElementCoordinates = (element) => {
 };
 
 const getRandomClickableElement = () => {
-    // Get all elements in the DOM
-    const allElements = document.getElementsByTagName("*");
+  // Get all elements in the DOM
+  const allElements = document.getElementsByTagName("*");
 
-    // Filter clickable elements
-    const clickableElements = [].filter.call(allElements, (element) => {
-        const tagName = element.tagName.toLowerCase();
-        const hasClickableRole =
-            element.getAttribute("role") === "button" ||
-            element.getAttribute("role") === "link";
-        const clickableTags = ["a", "button", "input"];
-        const isClickableTag = clickableTags.includes(tagName);
-        const isClickableInput =
-            tagName === "input" &&
-            ["submit", "button", "reset", "image"].includes(element.type);
+  // Filter clickable elements
+  const clickableElements = [].filter.call(allElements, (element) => {
+    const tagName = element.tagName.toLowerCase();
+    const hasClickableRole =
+      element.getAttribute("role") === "button" ||
+      element.getAttribute("role") === "link";
+    const clickableTags = ["a", "button", "input"];
+    const isClickableTag = clickableTags.includes(tagName);
+    const isClickableInput =
+      tagName === "input" &&
+      ["submit", "button", "reset", "image"].includes(element.type);
 
     const isNotAtOrigin =
       element.getBoundingClientRect().x !== 0 &&
       element.getBoundingClientRect().y !== 0;
 
-    const hasDomain = !element.href || element.href.includes(window.location.hostname); 
+    const hasDomain =
+      !element.href || element.href.includes(window.location.hostname);
     return (
-      (hasClickableRole || isClickableTag || isClickableInput) && isNotAtOrigin && hasDomain
+      (hasClickableRole || isClickableTag || isClickableInput) &&
+      isNotAtOrigin &&
+      hasDomain
     );
   });
 
-    // Select a random element from the clickable elements
-    const randomIndex = Math.floor(Math.random() * clickableElements.length);
-    const randomClickableElement = clickableElements[randomIndex];
+  // Select a random element from the clickable elements
+  const randomIndex = Math.floor(Math.random() * clickableElements.length);
+  const randomClickableElement = clickableElements[randomIndex];
 
-    return randomClickableElement;
+  return randomClickableElement;
 };
 
 // FOR SHADOW-DOM IMPLEMENTATION
@@ -119,94 +115,92 @@ const styleSlot = document.createElement("section");
 // append the styleSlot inside the shadow
 shadow.appendChild(styleSlot);
 
-
-
-
 // create the element where we would render our app
 const renderIn = document.createElement("div");
 // append the renderIn element inside the styleSlot
 styleSlot.appendChild(renderIn);
 const Container = () => {
-    const [quip, setQuip] = useState("-no set-")
+  const [quip, setQuip] = useState("-no set-");
 
-const App = () => {
-  const [position, setPosition] = React.useState({
-    x: window.innerWidth * 0.4,
-    y: window.innerHeight * 0.3,
-  });
-  const [cursorTimeout, setCursorTimeout] = React.useState(50000);
-  const [cursorClicked, setCursorClicked] = React.useState(false);
-  const [wasclicked, setWasclicked] = useState(false);
-  const [quip, setQuip] = useState("");
+  const App = () => {
+    const [position, setPosition] = React.useState({
+      x: window.innerWidth * 0.4,
+      y: window.innerHeight * 0.3,
+    });
+    const [cursorTimeout, setCursorTimeout] = React.useState(50000);
+    const [cursorClicked, setCursorClicked] = React.useState(false);
+    const [wasclicked, setWasclicked] = useState(false);
+    const [quip, setQuip] = useState("");
 
-  React.useEffect(() => {
-    console.log("starting scrape");
-    requestFeedback("steve jobs", scrapeDOM(), setQuip);
-  }, []);
+    React.useEffect(() => {
+      console.log("starting scrape");
+      requestFeedback("angry steve jobs", scrapeDOM(), setQuip);
+    }, []);
 
-  React.useEffect(() => {
-    const simulateClick = async () => {
-      setupListeners(setQuip);
-      const nextElement = getRandomClickableElement();
-      console.log(nextElement);
-      const nextPosition = getElementCoordinates(nextElement);
-      console.log(nextElement.getBoundingClientRect());
-      console.log(nextElement, nextPosition);
-      if (nextPosition.y >= window.innerHeight) {
-        // Scrolling the page itself
-        window.scrollTo({
-          top: nextPosition.y - window.innerHeight / 2 + 180,
-          behavior: "smooth",
-        });
-        // setPosition({ x: position.x + 320, y: position.y + 120 });
-        // Set the cursor position relative to the window
+    React.useEffect(() => {
+      const simulateClick = async () => {
+        setupListeners(setQuip);
+        const nextElement = getRandomClickableElement();
+        console.log(nextElement);
+        const nextPosition = getElementCoordinates(nextElement);
+        console.log(nextElement.getBoundingClientRect());
+        console.log(nextElement, nextPosition);
+        if (nextPosition.y >= window.innerHeight) {
+          // Scrolling the page itself
+          window.scrollTo({
+            top: nextPosition.y - window.innerHeight / 2 + 180,
+            behavior: "smooth",
+          });
+          // setPosition({ x: position.x + 320, y: position.y + 120 });
+          // Set the cursor position relative to the window
+          setTimeout(() => {
+            // console.log("y scroll by: ", window.scrollY);
+            // console.log("x scroll by: ", window.scrollX);
+            const newPos = {
+              x: nextPosition.x,
+              y: nextPosition.y - window.scrollY,
+            };
+            setPosition(newPos);
+          }, 700);
+        } else {
+          setPosition(nextPosition);
+        }
         setTimeout(() => {
-          // console.log("y scroll by: ", window.scrollY);
-          // console.log("x scroll by: ", window.scrollX);
-          const newPos = {
-            x: nextPosition.x,
-            y: nextPosition.y - window.scrollY,
-          };
-          setPosition(newPos);
-        }, 700);
-      } else {
-        setPosition(nextPosition);
+          setCursorClicked(true);
+        }, 1000);
+        setTimeout(() => {
+          nextElement.click();
+          setWasclicked(false);
+          setCursorClicked(false);
+        }, 1500);
+      };
+      if (wasclicked) {
+        simulateClick();
       }
-      setTimeout(() => {
-        setCursorClicked(true);
-      }, 1000)
-      setTimeout(() => {
-        nextElement.click();
-        setWasclicked(false);
-        setCursorClicked(false);
-      },1500);
-    };
-    if (wasclicked) {
-      simulateClick();
-    }
-  }, [wasclicked]);
-  return (
-    <>
-      <AgentStatusContainer
-        wasclicked={wasclicked}
-        setWasclicked={setWasclicked}
-        quip={quip}
-      />
-      <Cursor
-        name={sampleAgent.name}
-        position={position}
-        clicked={cursorClicked}
-      />
-    </>
+    }, [wasclicked]);
+    return (
+      <>
+        <AgentStatusContainer
+          wasclicked={wasclicked}
+          setWasclicked={setWasclicked}
+          quip={quip}
+        />
+        <Cursor
+          name={sampleAgent.name}
+          position={position}
+          clicked={cursorClicked}
+        />
+      </>
+    );
+  };
+
+  render(
+    <StyleSheetManager target={styleSlot}>
+      <App />
+    </StyleSheetManager>,
+    renderIn
   );
 };
-
-render(
-  <StyleSheetManager target={styleSlot}>
-    <App />
-  </StyleSheetManager>,
-  renderIn
-);
 
 function setupListeners(setQuip) {
   chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
