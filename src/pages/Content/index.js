@@ -1,7 +1,5 @@
 import { printLine } from "./modules/print";
 import "./content.styles.css";
-import { Cursor } from "./Cursor";
-import { printLine } from "./modules/print";
 import "./content.styles.css";
 import { Cursor } from "./Cursor";
 import React, { useState } from "react";
@@ -34,7 +32,10 @@ function requestFeedback(persona, domSummary, setQuip) {
 
 $(document).ready(() => {
   console.log("starting scrape");
-  requestFeedback("angry steve jobs", scrapeDOM());
+  requestFeedback(
+    sampleAgent.prompt,
+    scrapeDOM()
+  );
 });
 
 printLine("Using the 'printLine' function from the Print Module");
@@ -119,88 +120,99 @@ shadow.appendChild(styleSlot);
 const renderIn = document.createElement("div");
 // append the renderIn element inside the styleSlot
 styleSlot.appendChild(renderIn);
-const Container = () => {
-  const [quip, setQuip] = useState("-no set-");
 
-  const App = () => {
-    const [position, setPosition] = React.useState({
-      x: window.innerWidth * 0.4,
-      y: window.innerHeight * 0.3,
-    });
-    const [cursorTimeout, setCursorTimeout] = React.useState(50000);
-    const [cursorClicked, setCursorClicked] = React.useState(false);
-    const [wasclicked, setWasclicked] = useState(false);
-    const [quip, setQuip] = useState("");
+const App = () => {
+  const [position, setPosition] = React.useState({
+    x: window.innerWidth * 0.4,
+    y: window.innerHeight * 0.3,
+  });
+  const [cursorTimeout, setCursorTimeout] = React.useState(50000);
+  const [cursorClicked, setCursorClicked] = React.useState(false);
+  const [wasclicked, setWasclicked] = useState(false);
+  const [quip, setQuip] = useState("");
 
-    React.useEffect(() => {
-      console.log("starting scrape");
-      requestFeedback("angry steve jobs", scrapeDOM(), setQuip);
-    }, []);
-
-    React.useEffect(() => {
-      const simulateClick = async () => {
-        setupListeners(setQuip);
-        const nextElement = getRandomClickableElement();
-        console.log(nextElement);
-        const nextPosition = getElementCoordinates(nextElement);
-        console.log(nextElement.getBoundingClientRect());
-        console.log(nextElement, nextPosition);
-        if (nextPosition.y >= window.innerHeight) {
-          // Scrolling the page itself
-          window.scrollTo({
-            top: nextPosition.y - window.innerHeight / 2 + 180,
-            behavior: "smooth",
-          });
-          // setPosition({ x: position.x + 320, y: position.y + 120 });
-          // Set the cursor position relative to the window
-          setTimeout(() => {
-            // console.log("y scroll by: ", window.scrollY);
-            // console.log("x scroll by: ", window.scrollX);
-            const newPos = {
-              x: nextPosition.x,
-              y: nextPosition.y - window.scrollY,
-            };
-            setPosition(newPos);
-          }, 700);
-        } else {
-          setPosition(nextPosition);
-        }
-        setTimeout(() => {
-          setCursorClicked(true);
-        }, 1000);
-        setTimeout(() => {
-          nextElement.click();
-          setWasclicked(false);
-          setCursorClicked(false);
-        }, 1500);
-      };
-      if (wasclicked) {
-        simulateClick();
+  const listen = () => {
+    chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+      if (msg.type === "getContent") {
+        console.log("scraping dom for popup");
+        sendResponse(scrapeDOM());
+      } else if (msg.type === "updateQuip") {
+        setQuip(msg.quip);
+      } else {
+        console.log("unexpected expected message: " + JSON.stringify(msg));
       }
-    }, [wasclicked]);
-    return (
-      <>
-        <AgentStatusContainer
-          wasclicked={wasclicked}
-          setWasclicked={setWasclicked}
-          quip={quip}
-        />
-        <Cursor
-          name={sampleAgent.name}
-          position={position}
-          clicked={cursorClicked}
-        />
-      </>
-    );
-  };
+    });
+  }
 
-  render(
-    <StyleSheetManager target={styleSlot}>
-      <App />
-    </StyleSheetManager>,
-    renderIn
+  React.useEffect(() => {
+    console.log("starting scrape");
+    requestFeedback(sampleAgent.prompt, scrapeDOM(), setQuip);
+  }, []);
+
+  React.useEffect(() => {
+    const simulateClick = async () => {
+      listen();
+      // setupListeners();
+      const nextElement = getRandomClickableElement();
+      console.log(nextElement);
+      const nextPosition = getElementCoordinates(nextElement);
+      console.log(nextElement.getBoundingClientRect());
+      console.log(nextElement, nextPosition);
+      if (nextPosition.y >= window.innerHeight) {
+        // Scrolling the page itself
+        window.scrollTo({
+          top: nextPosition.y - window.innerHeight / 2 + 180,
+          behavior: "smooth",
+        });
+        // setPosition({ x: position.x + 320, y: position.y + 120 });
+        // Set the cursor position relative to the window
+        setTimeout(() => {
+          // console.log("y scroll by: ", window.scrollY);
+          // console.log("x scroll by: ", window.scrollX);
+          const newPos = {
+            x: nextPosition.x,
+            y: nextPosition.y - window.scrollY,
+          };
+          setPosition(newPos);
+        }, 700);
+      } else {
+        setPosition(nextPosition);
+      }
+      setTimeout(() => {
+        setCursorClicked(true);
+      }, 1000);
+      setTimeout(() => {
+        nextElement.click();
+        setWasclicked(false);
+        setCursorClicked(false);
+      }, 1500);
+    };
+    if (wasclicked) {
+      simulateClick();
+    }
+  }, [wasclicked]);
+  return (
+    <>
+      <AgentStatusContainer
+        wasclicked={wasclicked}
+        setWasclicked={setWasclicked}
+        quip={quip}
+      />
+      <Cursor
+        name={sampleAgent.name}
+        position={position}
+        clicked={cursorClicked}
+      />
+    </>
   );
 };
+
+render(
+  <StyleSheetManager target={styleSlot}>
+    <App />
+  </StyleSheetManager>,
+  renderIn
+);
 
 function setupListeners(setQuip) {
   chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {

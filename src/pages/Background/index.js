@@ -50,11 +50,10 @@ async function getFeedback(persona, domSummary, requestId) {
     console.log("initial thought: " + personaThoughtReply)
     const finalQuip = await gptclient.requestStreaming([
         systemMessage,
-        getGptMessage("user", "Describe the website and how a user is likely to feel about it." +
-            "Return an array of:     Likelihood of liking site: 0-100\n    Likelihood of hating site: 0-100\n    Likelihood of being confused by site: 0-100\n    Likelihood of using an emoji in reply: 0-100\n    Likelihood of vulgarity: 0-100\n    Likelihood of excitedness: 0-100\n    Perplexity: 0-100 in that order"),
+        getGptMessage("user", "Describe the website and how a user is likely to feel about it."),
         getGptMessage("assistant", "I would describe it and the user as" + personaThoughtReply + "\n Going forward I will ensure I do not reply with posttext or pretext, and encorporate this feedback, even if it means using vulgarity or emojis."),
         getFinalQuipMessage(persona, domSummary)
-    ], 'gpt-4', requestId, (string) => {
+    ], 'gpt-3.5-turbo', requestId, (string) => {
         return string;
         // return string.split("\n")
         //     .filter(line => line.trim().length === 0)
@@ -71,7 +70,7 @@ function getFinalQuipMessage(persona = "Steve Jobs", domSummary) {
 
     You are roleplaying as ${persona}. 
     Produce a quip that represents the persona replying extremely candidly.
-    Use the previously established likeihoods and description to determine how you reply.
+    Use the previously description to determine how you reply.
 
     Make sure you account for the fact that the description is incomplete: do not comment on a lack of information as you were given as much as possible.
 
@@ -95,16 +94,16 @@ function getChainOfThoughtMessage(persona = "Steve Jobs", domSummary) {
      Imagine general top level components, the color and aesthetic, etc.
      The paragraph should be written as if a programmer is trying to describe the high level description of the page by imaginging everything not described.
      Assume it is ok if you are completely wrong. You must be very terse.
-
-    Then conclude a JSON array of numbers representing:
-    Likelihood of liking site: 0-100
-    Likelihood of hating site: 0-100
-    Likelihood of being confused by site: 0-100
-    Likelihood of using an emoji in reply: 0-100
-    Likelihood of vulgarity: 0-100
-    Likelihood of excitedness: 0-100
-    Perplexity: 0-100
-    
-    The array should only contain numbers.
     `)
 }
+
+// Then conclude a JSON array of numbers representing:
+//     Likelihood of liking site: 0-100
+//     Likelihood of hating site: 0-100
+//     Likelihood of being confused by site: 0-100
+//     Likelihood of using an emoji in reply: 0-100
+//     Likelihood of vulgarity: 0-100
+//     Likelihood of excitedness: 0-100
+//     Perplexity: 0-100
+    
+//     The array should only contain numbers.

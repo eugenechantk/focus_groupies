@@ -34,7 +34,7 @@ export const sampleAgent = {
   name: "Steve",
   profileImgUrl:
     "https://www.hollywoodreporter.com/wp-content/uploads/2015/03/steve_jobs_the_man_in_the_machine_still.jpg",
-  prompt: "You are john",
+  prompt: "angry steve jobs",
 };
 
 const sampleQuip =

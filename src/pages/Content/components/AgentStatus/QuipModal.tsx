@@ -13,7 +13,7 @@ export default function QuipModal({
   quip?: string;
 }) {
   useEffect(() => {
-    console.log("quip passed to quip window:",quip);
+    console.log("quip passed to quip window:",quip?.split('\n'));
   }, [quip])
   return (
     <>
@@ -48,7 +48,7 @@ export default function QuipModal({
             color: "#F9FAFB",
           }}
         >
-          {quip}
+          {quip.split('\n').map((line, index) => <p key={index} style={{marginTop: '0px'}}>{line}</p>)}
         </div>
       )}
     </>
